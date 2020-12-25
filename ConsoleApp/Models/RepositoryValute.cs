@@ -5,8 +5,10 @@ namespace ConsoleApp.Models
 {
     internal class RepositoryValute
     {
+        private AValutesBuilder builder;
+
         [JsonProperty("valute")]
-        public readonly Dictionary<string, Valute> valutes = new Dictionary<string, Valute>();
+        private readonly Dictionary<string, Valute> valutes = new Dictionary<string, Valute>();
 
         internal class Valute
         {
@@ -17,6 +19,18 @@ namespace ConsoleApp.Models
             public string Name { get; set; }
             public decimal Value { get; set; }
             public decimal Previous { get; set; }
+        }
+
+        public RepositoryValute(AValutesBuilder builder)
+        {
+            this.builder = builder;
+        }
+
+        public Dictionary<string, Valute> getValutes()
+        {
+            builder.GetData();
+            builder.Convert();
+            return builder.GetValutes().valutes;
         }
     }
 }
