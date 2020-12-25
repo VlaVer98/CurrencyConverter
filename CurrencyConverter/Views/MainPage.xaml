@@ -4,9 +4,14 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:CurrencyConverter"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:local1="using:CurrencyConverter.ViewModels"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    
+    <Page.DataContext>
+        <local1:MainPageViewModel />
+    </Page.DataContext>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -14,12 +19,12 @@
             <RowDefinition Height="90*"/>
         </Grid.RowDefinitions>
         <StackPanel Background="AliceBlue" BorderBrush="Black">
-            <TextBlock Text="Название окна" HorizontalAlignment="Center" FontSize="24" />
+            <TextBlock Text="{Binding Title}" HorizontalAlignment="Center" FontSize="24" />
         </StackPanel>
-        <Grid Visibility="Visible" Grid.Row="1">
+        <Grid Visibility="{Binding ViewDownload}" Grid.Row="1">
             <ProgressRing VerticalAlignment="Center" HorizontalAlignment="Center" IsActive="True" Width="50" Height="50" />
         </Grid>
-        <Grid Visibility="Collapsed" Margin="15" Grid.Row="1">
+        <Grid Visibility="{Binding ViewMain}" Margin="15" Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="30*"/>
                 <RowDefinition Height="10*"/>
@@ -39,7 +44,7 @@
             <Button Grid.Row="3" Content="Изменить валюту" HorizontalAlignment="Center" VerticalAlignment="Top"/>
             <Button Grid.Row="3" Grid.Column="2" Content="Изменить валюту" HorizontalAlignment="Center" VerticalAlignment="Top"/>
         </Grid>
-        <ListBox Visibility="Collapsed" Grid.Row="1">
+        <ListBox Visibility="{Binding ViewSelect}" Grid.Row="1">
             <ListBoxItem HorizontalContentAlignment="Center">
                 <TextBlock FontSize="20" Text="123"/>
             </ListBoxItem>
