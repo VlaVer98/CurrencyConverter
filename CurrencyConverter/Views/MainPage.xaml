@@ -44,8 +44,8 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <TextBox Height="50" TextAlignment="Center" Padding="0 10"/>
-            <TextBox Height="50" TextAlignment="Center" Padding="0 10" Grid.Column="2"/>
+            <TextBox Text="{Binding Money1, TargetNullValue=0, Mode=TwoWay}" Height="50" TextAlignment="Center" Padding="0 10"/>
+            <TextBox Text="{Binding Money2, TargetNullValue=0, Mode=TwoWay}" Height="50" TextAlignment="Center" Padding="0 10" Grid.Column="2"/>
             <TextBlock Text="--------" Grid.Row="1" Grid.Column="1" TextAlignment="Center"/>
             <TextBlock Text="RU" Grid.Row="2"  TextAlignment="Center" FontSize="30"/>
             <TextBlock Text="USD" Grid.Row="2" Grid.Column="2" TextAlignment="Center" FontSize="30"/>

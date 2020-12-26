@@ -17,20 +17,13 @@ namespace CurrencyConverter.ViewModels
         Dictionary<string, Valute> valutes;
         Converter converter;
 
-        string _Title = "Загрузка данных";
-        public string Title {
-            get => _Title;
+        #region Views
+        private Visibility _ViewDownload = Visibility.Visible;
+        public Visibility ViewDownload
+        {
+            get => _ViewDownload;
             set
             {
-                _Title = value;
-                OnPropertyChanged("Title");
-            }
-        }
-
-        private Visibility _ViewDownload = Visibility.Visible;
-        public Visibility ViewDownload { 
-            get => _ViewDownload; 
-            set {
                 _Title = "Загузка данных";
                 _ViewMain = Visibility.Collapsed;
                 _ViewSelect = Visibility.Collapsed;
@@ -39,12 +32,13 @@ namespace CurrencyConverter.ViewModels
                 OnPropertyChanged("ViewDownload");
                 OnPropertyChanged("ViewMain");
                 OnPropertyChanged("ViewSelect");
-            } 
+            }
         }
 
         private Visibility _ViewMain = Visibility.Collapsed;
-        public Visibility ViewMain { 
-            get => _ViewMain; 
+        public Visibility ViewMain
+        {
+            get => _ViewMain;
             set
             {
                 _Title = "Конвертер валют";
@@ -59,7 +53,8 @@ namespace CurrencyConverter.ViewModels
         }
 
         private Visibility _ViewSelect = Visibility.Collapsed;
-        public Visibility ViewSelect { 
+        public Visibility ViewSelect
+        {
             get => _ViewSelect;
             set
             {
@@ -71,14 +66,51 @@ namespace CurrencyConverter.ViewModels
                 OnPropertyChanged("ViewDownload");
                 OnPropertyChanged("ViewMain");
                 OnPropertyChanged("ViewSelect");
+            }
+        }
+        #endregion
+        #region Properties
+        string _Title = "Загрузка данных";
+        public string Title
+        {
+            get => _Title;
+            set
+            {
+                _Title = value;
+                OnPropertyChanged("Title");
+            }
+        }
+        #region Converter
+
+        public string Money1 { 
+            get => converter?.Money1.ToString();
+            set 
+            {
+                if(Decimal.TryParse(value, out decimal result))
+                    converter.Money1 = result;
+                else
+                    converter.Money1 = 0M;
+                OnPropertyChanged("Money1");
+                OnPropertyChanged("Money2");
             } 
         }
-        public ICommand LoadedCommand { get; set; }
-
-        public MainPageViewModel()
+        public string Money2
         {
-            LoadedCommand = new RelayCommand(Loaded);
+            get => converter?.Money2.ToString();
+            set
+            {
+                if (Decimal.TryParse(value, out decimal result))
+                    converter.Money2 = result;
+                else
+                    converter.Money2 = 0M;
+                OnPropertyChanged("Money1");
+                OnPropertyChanged("Money2");
+            }
         }
+        #endregion
+        #endregion
+        #region Commands
+        public ICommand LoadedCommand { get; set; }
         private async void Loaded()
         {
             bool operation = true;
@@ -89,7 +121,8 @@ namespace CurrencyConverter.ViewModels
                     valutes = new RepositoryValute(new ValutesBuilder()).GetValutes();
                     converter = new Converter(valutes["USD"], valutes["EUR"]);
                 }
-                catch (Exception) {
+                catch (Exception)
+                {
                     operation = false;
                 }
             });
@@ -102,6 +135,11 @@ namespace CurrencyConverter.ViewModels
             {
                 //TODO вид ошибки
             }
+        }
+        #endregion
+        public MainPageViewModel()
+        {
+            LoadedCommand = new RelayCommand(Loaded);
         }
     }
 }
