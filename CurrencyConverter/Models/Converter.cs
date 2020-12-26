@@ -9,7 +9,7 @@ namespace CurrencyConverter.Models
             get => _Money1;
             set
             {
-                if(value > 0)
+                if(value >= 0)
                 {
                     _Money1 = value;
                     RecountValute1();
@@ -23,7 +23,7 @@ namespace CurrencyConverter.Models
             get => _Money2;
             set
             {
-                if (value > 0)
+                if (value >= 0)
                 {
                     _Money2 = value;
                     RecountValute2();
