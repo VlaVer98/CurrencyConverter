@@ -66,5 +66,13 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+        <Grid Visibility="{Binding ViewErrorLoading}" Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50*"/>
+                <RowDefinition Height="50*"/>
+            </Grid.RowDefinitions>
+            <TextBlock VerticalAlignment="Bottom" Width="300" Text="Ошибка загрузки курса валют. Проверьте интернет соединение и повторите снова." TextWrapping="Wrap"/>
+            <Button Command="{Binding LoadingDataCommand}" Grid.Row="1" Content="Повторить" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="30"/>
+        </Grid>
     </Grid>
 </Page>

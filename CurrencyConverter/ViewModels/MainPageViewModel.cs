@@ -25,16 +25,11 @@ namespace CurrencyConverter.ViewModels
             set
             {
                 _Title = "Загузка данных";
-                _ViewMain = Visibility.Collapsed;
-                _ViewSelect1 = Visibility.Collapsed;
-                _ViewSelect2 = Visibility.Collapsed;
+                _ViewErrorLoading = Visibility.Collapsed;
                 _ViewDownload = value;
                 OnPropertyChanged("Title");
                 OnPropertyChanged("ViewDownload");
-                OnPropertyChanged("ViewMain");
-                OnPropertyChanged("ViewSelect");
-                OnPropertyChanged("ViewSelect1");
-                OnPropertyChanged("ViewSelect2");
+                OnPropertyChanged("ViewErrorLoading");
             }
         }
 
@@ -64,15 +59,11 @@ namespace CurrencyConverter.ViewModels
             set
             {
                 _Title = "Выбор валют";
-                _ViewDownload = Visibility.Collapsed;
                 _ViewMain = Visibility.Collapsed;
                 _ViewSelect1 = value;
-                _ViewSelect2 = Visibility.Collapsed;
                 OnPropertyChanged("Title");
-                OnPropertyChanged("ViewDownload");
                 OnPropertyChanged("ViewMain");
                 OnPropertyChanged("ViewSelect1");
-                OnPropertyChanged("ViewSelect2");
             }
         }
 
@@ -83,15 +74,25 @@ namespace CurrencyConverter.ViewModels
             set
             {
                 _Title = "Выбор валют";
-                _ViewDownload = Visibility.Collapsed;
                 _ViewMain = Visibility.Collapsed;
-                _ViewSelect1 = Visibility.Collapsed;
                 _ViewSelect2 = value;
                 OnPropertyChanged("Title");
-                OnPropertyChanged("ViewDownload");
                 OnPropertyChanged("ViewMain");
-                OnPropertyChanged("ViewSelect");
                 OnPropertyChanged("ViewSelect2");
+            }
+        }
+
+        private Visibility _ViewErrorLoading = Visibility.Collapsed;
+        public Visibility ViewErrorLoading {
+            get => _ViewErrorLoading;
+            set
+            {
+                _Title = "Ошибка загрузки курса валют";
+                _ViewDownload = Visibility.Collapsed;
+                _ViewErrorLoading = value;
+                OnPropertyChanged("Title");
+                OnPropertyChanged("ViewDownload");
+                OnPropertyChanged("ViewErrorLoading");
             }
         }
         #endregion
@@ -209,6 +210,7 @@ namespace CurrencyConverter.ViewModels
         private async void LoadingData()
         {
             bool operation = true;
+            ViewDownload = Visibility.Visible;
 
             await Task.Run(() => {
                 try
@@ -233,7 +235,7 @@ namespace CurrencyConverter.ViewModels
             }
             else
             {
-                //TODO вид ошибки
+                ViewErrorLoading = Visibility.Visible;
             }
         }
         #endregion
