@@ -15,7 +15,7 @@ namespace ConsoleApp.Models
                 if(value > 0)
                 {
                     _Money1 = value;
-                    RecountValute1();
+                    RecountMoney1();
                 }
             }
         }
@@ -29,7 +29,7 @@ namespace ConsoleApp.Models
                 if (value > 0)
                 {
                     _Money2 = value;
-                    RecountValute2();
+                    RecountMoney2();
                 }
             }
         }
@@ -42,7 +42,7 @@ namespace ConsoleApp.Models
                 if(value != null)
                 {
                     _Valute1 = value;
-                    RecountValute2();
+                    RecountValute1();
                 }
             }
         }
@@ -56,7 +56,7 @@ namespace ConsoleApp.Models
                 if (value != null)
                 {
                     _Valute2 = value;
-                    RecountValute1();
+                    RecountValute2();
                 }
             }
         }
@@ -69,6 +69,16 @@ namespace ConsoleApp.Models
             _Money2 = 0;
         }
 
+        private void RecountMoney1()
+        {
+            decimal koef = Valute1.Value / Valute2.Value;
+            _Money2 = Money1 * koef;
+        }
+        private void RecountMoney2()
+        {
+            decimal koef = Valute2.Value / Valute1.Value;
+            _Money1 = Money2 * koef;
+        }
         private void RecountValute1()
         {
             decimal koef = Valute1.Value / Valute2.Value;
@@ -76,9 +86,13 @@ namespace ConsoleApp.Models
         }
         private void RecountValute2()
         {
-            decimal koef = Valute2.Value / Valute1.Value;
-            _Money1 = Money2 * koef;
+            decimal koef = Valute1.Value / Valute2.Value;
+            _Money2 = Money1 * koef;
         }
-
+        public void SwapValute()
+        {
+            (Valute1, Valute2) = (Valute2, Valute1);
+            RecountValute2();
+        }
     }
 }
