@@ -154,7 +154,7 @@ namespace CurrencyConverter.ViewModels
         #region Money1
         public string Money1
         {
-            get => _Converter?.Money1.ToString();
+            get => _Converter?.Money1.ToString("F4");
             set
             {
                 if (Decimal.TryParse(value, out decimal result))
@@ -169,7 +169,7 @@ namespace CurrencyConverter.ViewModels
         #region Money2
         public string Money2
         {
-            get => _Converter?.Money2.ToString();
+            get => _Converter?.Money2.ToString("F4");
             set
             {
                 if (Decimal.TryParse(value, out decimal result))
@@ -253,13 +253,14 @@ namespace CurrencyConverter.ViewModels
             ViewSelect2 = Visibility.Visible;
         }
         #endregion
-
+        #region Swap Valute
         public ICommand SwapValuteCommand { get; set; }
         private void SwapValute()
         {
             _Converter.SwapValute();
             UpdateFieldsOfConverter();
         }
+        #endregion
         #endregion
 
         public MainPageViewModel()
