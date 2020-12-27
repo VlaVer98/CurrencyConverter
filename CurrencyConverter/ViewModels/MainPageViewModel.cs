@@ -253,6 +253,13 @@ namespace CurrencyConverter.ViewModels
             ViewSelect2 = Visibility.Visible;
         }
         #endregion
+
+        public ICommand SwapValuteCommand { get; set; }
+        private void SwapValute()
+        {
+            _Converter.SwapValute();
+            UpdateFieldsOfConverter();
+        }
         #endregion
 
         public MainPageViewModel()
@@ -260,6 +267,7 @@ namespace CurrencyConverter.ViewModels
             LoadingDataCommand = new RelayCommand(LoadingData);
             ShowViewOfValute1SelectionCommand = new RelayCommand(Valute1Selection);
             ShowViewOfValute2SelectionCommand = new RelayCommand(Valute2Selection);
+            SwapValuteCommand = new RelayCommand(SwapValute);
         }
 
         private void UpdateFieldsOfConverter()

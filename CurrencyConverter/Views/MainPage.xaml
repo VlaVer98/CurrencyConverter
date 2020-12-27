@@ -35,9 +35,9 @@
         <Grid Visibility="{Binding ViewMain}" Margin="15" Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="30*"/>
-                <RowDefinition Height="10*"/>
                 <RowDefinition Height="20*"/>
-                <RowDefinition Height="40*"/>
+                <RowDefinition Height="20*"/>
+                <RowDefinition Height="30*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
@@ -46,7 +46,9 @@
             </Grid.ColumnDefinitions>
             <TextBox Text="{Binding Money1, TargetNullValue=0, Mode=TwoWay}" Height="50" TextAlignment="Center" Padding="0 10"/>
             <TextBox Text="{Binding Money2, TargetNullValue=0, Mode=TwoWay}" Height="50" TextAlignment="Center" Padding="0 10" Grid.Column="2"/>
-            <TextBlock Text="--------" Grid.Row="1" Grid.Column="1" TextAlignment="Center"/>
+            <Button x:Name="Swap" Command="{Binding SwapValuteCommand}" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" Background="Transparent">
+                <Image Source="../Assets/Image/Swap.png" Stretch="Uniform"/>
+            </Button>
             <TextBlock Text="{Binding Valute1, TargetNullValue=-}" Grid.Row="2"  TextAlignment="Center" FontSize="30"/>
             <TextBlock Text="{Binding Valute2, TargetNullValue=-}" Grid.Row="2" Grid.Column="2" TextAlignment="Center" FontSize="30"/>
             <Button Command="{Binding ShowViewOfValute1SelectionCommand}" Grid.Row="3" Content="Изменить валюту" HorizontalAlignment="Center" VerticalAlignment="Top"/>
