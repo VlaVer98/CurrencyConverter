@@ -12,12 +12,12 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Page.DataContext>
-        <local1:MainPageViewModel />
+        <local1:MainPageViewModel/>
     </Page.DataContext>
 
     <i:Interaction.Behaviors>
         <ic:EventTriggerBehavior EventName="Loaded">
-            <ic:InvokeCommandAction Command="{Binding LoadedCommand}"/>
+            <ic:InvokeCommandAction Command="{Binding LoadingDataCommand}"/>
         </ic:EventTriggerBehavior>
     </i:Interaction.Behaviors>
     
@@ -47,21 +47,24 @@
             <TextBox Text="{Binding Money1, TargetNullValue=0, Mode=TwoWay}" Height="50" TextAlignment="Center" Padding="0 10"/>
             <TextBox Text="{Binding Money2, TargetNullValue=0, Mode=TwoWay}" Height="50" TextAlignment="Center" Padding="0 10" Grid.Column="2"/>
             <TextBlock Text="--------" Grid.Row="1" Grid.Column="1" TextAlignment="Center"/>
-            <TextBlock Text="RU" Grid.Row="2"  TextAlignment="Center" FontSize="30"/>
-            <TextBlock Text="USD" Grid.Row="2" Grid.Column="2" TextAlignment="Center" FontSize="30"/>
-            <Button Grid.Row="3" Content="Изменить валюту" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-            <Button Grid.Row="3" Grid.Column="2" Content="Изменить валюту" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            <TextBlock Text="{Binding Valute1, TargetNullValue=-}" Grid.Row="2"  TextAlignment="Center" FontSize="30"/>
+            <TextBlock Text="{Binding Valute2, TargetNullValue=-}" Grid.Row="2" Grid.Column="2" TextAlignment="Center" FontSize="30"/>
+            <Button Command="{Binding ShowViewOfValute1SelectionCommand}" Grid.Row="3" Content="Изменить валюту" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            <Button Command="{Binding ShowViewOfValute2SelectionCommand}" Grid.Row="3" Grid.Column="2" Content="Изменить валюту" HorizontalAlignment="Center" VerticalAlignment="Top"/>
         </Grid>
-        <ListBox Visibility="{Binding ViewSelect}" Grid.Row="1">
-            <ListBoxItem HorizontalContentAlignment="Center">
-                <TextBlock FontSize="20" Text="123"/>
-            </ListBoxItem>
-            <ListBoxItem HorizontalContentAlignment="Center">
-                <TextBlock FontSize="20" Text="123" HorizontalTextAlignment="Center"/>
-            </ListBoxItem>
-            <ListBoxItem HorizontalContentAlignment="Center">
-                <TextBlock FontSize="20" Text="123"/>
-            </ListBoxItem>
-        </ListBox>
+        <ListView x:Name="List11" Visibility="{Binding ViewSelect1}" Grid.Row="1" ItemsSource="{Binding Valutes}" SelectedItem="{Binding SelectedValute1, Mode=TwoWay}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Name}" />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <ListView Visibility="{Binding ViewSelect2}" Grid.Row="1" ItemsSource="{Binding Valutes}" SelectedItem="{Binding SelectedValute2, Mode=TwoWay}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Name}" />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </Grid>
 </Page>
