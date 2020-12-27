@@ -5,14 +5,15 @@ namespace CurrencyConverter.Models
     internal class Converter
     {
         private decimal _Money1;
-        public decimal Money1 {
+        public decimal Money1
+        {
             get => _Money1;
             set
             {
-                if(value >= 0)
+                if (value > 0)
                 {
                     _Money1 = value;
-                    RecountValute1();
+                    RecountMoney1();
                 }
             }
         }
@@ -23,23 +24,24 @@ namespace CurrencyConverter.Models
             get => _Money2;
             set
             {
-                if (value >= 0)
+                if (value > 0)
                 {
                     _Money2 = value;
-                    RecountValute2();
+                    RecountMoney2();
                 }
             }
         }
 
         private Valute _Valute1;
-        public Valute Valute1 {
+        public Valute Valute1
+        {
             get => _Valute1;
             set
             {
-                if(value != null)
+                if (value != null)
                 {
                     _Valute1 = value;
-                    RecountValute2();
+                    RecountValute1();
                 }
             }
         }
@@ -53,7 +55,7 @@ namespace CurrencyConverter.Models
                 if (value != null)
                 {
                     _Valute2 = value;
-                    RecountValute1();
+                    RecountValute2();
                 }
             }
         }
@@ -66,6 +68,16 @@ namespace CurrencyConverter.Models
             _Money2 = 0;
         }
 
+        private void RecountMoney1()
+        {
+            decimal koef = Valute1.Value / Valute2.Value;
+            _Money2 = Money1 * koef;
+        }
+        private void RecountMoney2()
+        {
+            decimal koef = Valute2.Value / Valute1.Value;
+            _Money1 = Money2 * koef;
+        }
         private void RecountValute1()
         {
             decimal koef = Valute1.Value / Valute2.Value;
@@ -73,8 +85,13 @@ namespace CurrencyConverter.Models
         }
         private void RecountValute2()
         {
-            decimal koef = Valute2.Value / Valute1.Value;
-            _Money1 = Money2 * koef;
+            decimal koef = Valute1.Value / Valute2.Value;
+            _Money2 = Money1 * koef;
+        }
+        public void SwapValute()
+        {
+            (Valute1, Valute2) = (Valute2, Valute1);
+            RecountValute2();
         }
 
     }
